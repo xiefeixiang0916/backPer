@@ -6,7 +6,7 @@
     <router-link to="/adsda">用户列表</router-link>
     <div class="right">
       <!-- 右侧用来显示子路由对应的内容，即子路由对应页面的显示区域 -->
-      <router-view></router-view>
+      <router-view msg="13123"></router-view>
     </div>
   </div>
 </template>
