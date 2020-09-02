@@ -6,3 +6,9 @@ body,
   margin: 0;
   padding: 0;
 }
+
+/* 重写面包屑样式 */
+.el-breadcrumb{
+  margin-bottom:15px;
+}
+

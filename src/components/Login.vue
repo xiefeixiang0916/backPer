@@ -3,24 +3,24 @@
     <div class="login_box">
       <!-- 头像区域 -->
       <div class="avatar_box">
-        <img src="../assets/logo.jpg" />
+        <img src="../assets/img/logo.jpg" />
       </div>
 
       <!-- 登录表单区域 -->
       <div>
-        <el-form ref="form" :model="form" label-width="0px" class="login_form">
+        <el-form ref="loginFromRef" :model="login" class="login_form" :rules="loginFromRules">
           <!-- 用户名 -->
-          <el-form-item>
-            <el-input v-model="form.name"></el-input>
+          <el-form-item prop="username">
+            <el-input v-model="login.username" prefix-icon="el-icon-user-solid"></el-input>
           </el-form-item>
           <!-- 密码 -->
-          <el-form-item>
-            <el-input v-model="form.name"></el-input>
+          <el-form-item prop="password">
+            <el-input v-model="login.password" type="password" prefix-icon="el-icon-lock"></el-input>
           </el-form-item>
           <!-- 按钮区域 -->
           <el-form-item class="btns">
-            <el-button type="primary" @click="onSubmit">登录</el-button>
-            <el-button>重置</el-button>
+            <el-button type="primary" @click="loginClick">登录</el-button>
+            <el-button @click="resetLoginFrom">重置</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -31,26 +31,62 @@
 export default {
   data() {
     return {
-      form: {
-        name: "",
+      //表单登录对象
+      login: {
+        username: 'szw',
+        password: '1234568',
       },
-    };
+      //表单验证规则
+      loginFromRules: {
+        username: [
+          { required: true, message: '请输入用户名称', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          {
+            min: 6,
+            max: 15,
+            message: '长度在 6 到 15 个字符',
+            trigger: 'blur',
+          },
+        ],
+      },
+    }
   },
   methods: {
-    onSubmit() {},
+    loginClick() {
+      //进行正则验证
+      this.$refs.loginFromRef.validate((valid) => {
+        console.log(valid)
+        if (!valid) return
+
+        this.$http.get('todayVideo').then((response) => {
+          console.log(response.data)
+          this.$message.success('登陆成功')
+          //存储token
+          window.sessionStorage.setItem('token', 'dfsfsf345tgfdf342dsdf')
+          this.$router.push('/home')
+        })
+      })
+    },
+    //点击按钮 重置登录表单
+    resetLoginFrom() {
+      // console.log(this)
+      this.$refs.loginFromRef.resetFields()
+    },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
 .login_container {
   background-color: #2b4b6b;
-  background-image: url("../assets/timg.jpg");
-  background-repeat:no-repeat;
-  background-size:100% 100%;
-  -moz-background-size:100% 100%;
+  background-image: url('../assets/img/timg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
   height: 100%;
-
 }
 .login_box {
   width: 450px;
@@ -82,17 +118,16 @@ export default {
   }
 }
 
-.login_form{
+.login_form {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding:0 20px;
-  box-sizing:border-box;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
-.btns{
+.btns {
   display: flex;
   justify-content: flex-end;
 }
-
 </style>
