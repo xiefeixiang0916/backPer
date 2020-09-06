@@ -33,21 +33,21 @@ export default {
     return {
       //表单登录对象
       login: {
-        username: 'szw',
-        password: '1234568',
+        username: 'admin',
+        password: '123456',
       },
       //表单验证规则
       loginFromRules: {
         username: [
           { required: true, message: '请输入用户名称', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+          { min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur' },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           {
-            min: 6,
+            min: 0,
             max: 15,
-            message: '长度在 6 到 15 个字符',
+            message: '长度在 0 到 15 个字符',
             trigger: 'blur',
           },
         ],
@@ -58,14 +58,15 @@ export default {
     loginClick() {
       //进行正则验证
       this.$refs.loginFromRef.validate((valid) => {
-        console.log(valid)
+       // console.log(valid)
         if (!valid) return
 
-        this.$http.get('todayVideo').then((response) => {
-          console.log(response.data)
+        this.$http.post('login',this.login).then((response) => {
+          //console.log(response.data)
+          const {data:res} = response.data;
           this.$message.success('登陆成功')
           //存储token
-          window.sessionStorage.setItem('token', 'dfsfsf345tgfdf342dsdf')
+          window.sessionStorage.setItem('token', res.token)
           this.$router.push('/home')
         })
       })

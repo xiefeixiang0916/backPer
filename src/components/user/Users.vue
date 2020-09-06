@@ -24,15 +24,34 @@
 
       <el-divider></el-divider>
 
-      <el-table :data="tableData" style="width: 100%" border stript laber="#">
+      <el-table :data="userTableData" style="width: 100%" border stripe>
         <el-table-column type="index" label="#" width="50"></el-table-column>
-        <el-table-column prop="date" label="日期" width="180"></el-table-column>
-        <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="address" label="地址"></el-table-column>
-        <el-table-column prop="address" label="地址">
+        <el-table-column prop="username" label="用户名称" width="180"></el-table-column>
+        <el-table-column prop="email" label="邮箱"></el-table-column>
+        <el-table-column prop="mobile" label="电话"></el-table-column>
+        <el-table-column prop="role_name" label="角色名称" width="180"></el-table-column>
+        <el-table-column prop="mg_state" label="状态">
           <template slot-scope="scope">
             <!-- {{scope.row}} -->
             <el-switch v-model="scope.row.mgState" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <!-- 修改按钮 -->
+            <el-tooltip class="item" effect="dark" content="修改" :enterable="false" placement="top">
+              <el-button type="primary" icon="el-icon-edit"></el-button>
+            </el-tooltip>
+
+            <!-- 删除按钮 -->
+            <el-tooltip class="item" effect="dark" content="删除" :enterable="false" placement="top">
+              <el-button type="danger" icon="el-icon-delete"></el-button>
+            </el-tooltip>
+
+            <!-- 分配角色按钮 -->
+            <el-tooltip class="item" effect="dark" content="分配角色" :enterable="false" placement="top">
+              <el-button type="warning" icon="el-icon-share"></el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
@@ -43,35 +62,32 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄',
-          mgState: true,
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄',
-          mgState: true,
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          mgState: true,
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          mgState: false,
-        },
-      ],
-
-    
+      //获取用户列表的参数对象
+      userQuerInfo: {
+        query: '',
+        pagenum: 1,
+        pagesize: 2,
+      },
+      total: 0,
+      userTableData: [],
     }
+  },
+  created() {
+    this.getUserList()
+  },
+  methods: {
+    async getUserList() {
+      const { data: res } = await this.$http.get('users', {
+        params: this.userQuerInfo,
+      })
+
+      // console.log(res)
+
+      if (res.meta.status != 200) return this.$message.error('获取用户列表失败')
+
+      this.userTableData = res.data.users
+      this.total = res.data.total
+    },
   },
 }
 </script>

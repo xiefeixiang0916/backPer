@@ -24,30 +24,19 @@
           :router="true"
         >
           <!-- 一级菜单 -->
-          <el-submenu index="1">
+          <el-submenu :index="item.path" v-for="item in menulist" :key="item.id">
             <!-- 一级菜单的模板区 -->
-            <template slot="title" style="left:-100px">
-              <!-- 图标 -->
+            <template slot="title">
               <i class="el-icon-location"></i>
-              <!-- 文本 -->
-              <span>导航一</span>
+              <span style="padding-right: 60px">{{item.authName}}</span>
             </template>
-            <el-menu-item index="/users">选项1</el-menu-item>
-            <el-menu-item index="/adsda">选项2</el-menu-item>
-            <el-menu-item index="1-3">选项2</el-menu-item>
-          </el-submenu>
 
-          <el-submenu index="2">
-            <!-- 一级菜单的模板区 -->
-            <template slot="title" style="left:-100px">
-              <!-- 图标 -->
-              <i class="el-icon-location"></i>
-              <!-- 文本 -->
-              <span>导航一</span>
-            </template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项2</el-menu-item>
+            <el-menu-item :index="subItem.path" v-for="subItem in item.children" :key="subItem.id">
+              <template slot="title">
+                <!-- <i class="el-icon-location"></i> -->
+                <span>{{subItem.authName}}</span>
+              </template>
+            </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
@@ -68,12 +57,27 @@ export default {
     return {
       title: '这是我的第一个Vue脚手架项目',
       isCollapse: false,
+      //左侧菜单数据
+      menulist: [],
     }
+  },
+  created() {
+    this.getMtnuList()
   },
   methods: {
     logout() {
+      //清空 token值
       window.sessionStorage.clear
       this.$router.push('/login')
+    },
+    //获取所有的菜单
+    async getMtnuList() {
+      const { data: res } = await this.$http.get('menus')
+      console.log(res)
+      if (res.meta.status !== 200) {
+        return this.$message.error(res.mate.msg)
+      }
+      this.menulist = res.data
     },
     //点击按钮切换菜单的折叠与展开
     toggleCollapse() {
@@ -114,10 +118,13 @@ export default {
   }
 }
 
+
 .el-main {
   background-color: #eaedf1;
 }
-
+.el-icon-location{
+  margin-right: 10px !important ;
+}
 .toggle-button {
   background-color: #4a5064;
   font-size: 10px;
