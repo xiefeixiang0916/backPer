@@ -2,7 +2,7 @@
   <div>
     <!-- 面包屑导航区 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>活动管理</el-breadcrumb-item>
       <el-breadcrumb-item>活动列表</el-breadcrumb-item>
       <el-breadcrumb-item>活动详情</el-breadcrumb-item>
@@ -24,6 +24,7 @@
 
       <el-divider></el-divider>
 
+      <!--用户列表区域 -->
       <el-table :data="userTableData" style="width: 100%" border stripe>
         <el-table-column type="index" label="#" width="50"></el-table-column>
         <el-table-column prop="username" label="用户名称" width="180"></el-table-column>
@@ -49,12 +50,29 @@
             </el-tooltip>
 
             <!-- 分配角色按钮 -->
-            <el-tooltip class="item" effect="dark" content="分配角色" :enterable="false" placement="top">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="分配角色"
+              :enterable="false"
+              placement="top"
+            >
               <el-button type="warning" icon="el-icon-share"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
+
+      <!-- 分页区域 -->
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage4"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400"
+      ></el-pagination>
     </el-card>
   </div>
 </template>
@@ -87,6 +105,12 @@ export default {
 
       this.userTableData = res.data.users
       this.total = res.data.total
+    },
+    handleSizeChange(newSize) {
+      console.log(`每页 ${newSize} 条`)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
     },
   },
 }
