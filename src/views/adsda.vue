@@ -1,11 +1,17 @@
 <template>
   <div>
+    <h1>{{screenWidth }} × {{screenHeight }}</h1>
     <span class="field-label">方块选择:{{selected}}</span>
 
     <!-- 选择屏幕框 -->
 
     <select v-model="selected" @change="selectbj(selected)">
-      <option v-for="option in layouts"  :key="option.value"   :label="option.name" :value="option.value">{{ option.name }}</option>
+      <option
+        v-for="option in layouts"
+        :key="option.value"
+        :label="option.name"
+        :value="option.value"
+      >{{ option.name }}</option>
     </select>
     <el-main v-model="selected">
       <div class="block" style="height:400px">
@@ -150,7 +156,7 @@ export default {
   data() {
     return {
       selected: 0,
-      layouts:[
+      layouts: [
         { name: '1x1模式', value: '0' },
         { name: '2x1模式', value: '1' },
         { name: '2x2模式', value: '2' },
@@ -158,13 +164,32 @@ export default {
         { name: '3x3模式', value: '4' },
         { name: '1+5模式', value: '5' },
       ],
+      screenWidth: '',
+      screenHeight: '',
     }
   },
-  methods:{
-    selectbj(selected){
-      this.selected = selected;
+  mounted() {
+    this.screenWidth = document.body.clientWidth
+    this.screenHeight = document.body.clientHeight
+    window.onresize = () => {
+      return (() => {
+        this.screenWidth = document.body.clientWidth
+        this.screenHeight = document.body.clientHeight
+
+        if (this.screenWidth < 600 && this.screenHeight < 900) {
+          console.log("23212");
+          this.selected = 2
+        }else{
+          this.selected = 0;
+        }
+      })()
     }
-  }
+  },
+  methods: {
+    selectbj(selected) {
+      this.selected = selected
+    },
+  },
 }
 </script>
 
