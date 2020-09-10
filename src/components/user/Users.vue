@@ -34,7 +34,12 @@
         <el-table-column prop="mg_state" label="状态">
           <template slot-scope="scope">
             <!-- {{scope.row}} -->
-            <el-switch v-model="scope.row.mgState" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+            <el-switch
+              v-model="scope.row.mgState"
+              @change="switchMgState(scope.row)"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+            ></el-switch>
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -67,11 +72,11 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :current-page="userQuerInfo.pagenum"
+        :page-sizes="[1, 2, 5, 10]"
+        :page-size="userQuerInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+        :total="this.total"
       ></el-pagination>
     </el-card>
   </div>
@@ -108,9 +113,25 @@ export default {
     },
     handleSizeChange(newSize) {
       console.log(`每页 ${newSize} 条`)
+      this.userQuerInfo.pagesize = newSize
+      this.getUserList()
     },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+    handleCurrentChange(newPagenum) {
+      console.log(`当前页: ${newPagenum}`)
+      this.userQuerInfo.pagenum = newPagenum
+      this.getUserList()
+    },
+    // 用户状态
+    async switchMgState(val) {
+      // console.log(val)
+      const { data: res } = await this.$http.put(
+        `users/${val.id}/state/${val.mg_state}`
+      )
+      if(res.meta.status !== 200){
+        val.mg_state != val.mg_state;
+        return this.$message.error("更新用户状态失败");
+      }
+      this.$message.success(res.meta.msg);
     },
   },
 }

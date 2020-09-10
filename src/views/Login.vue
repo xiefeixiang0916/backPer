@@ -21,6 +21,7 @@
           <el-form-item class="btns">
             <el-button type="primary" @click="loginClick">登录</el-button>
             <el-button @click="resetLoginFrom">重置</el-button>
+            <el-button type="primary" @click="loginTouristClick">游客模式</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -40,7 +41,12 @@ export default {
       loginFromRules: {
         username: [
           { required: true, message: '请输入用户名称', trigger: 'blur' },
-          { min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur' },
+          {
+            min: 0,
+            max: 10,
+            message: '长度在 0 到 10 个字符',
+            trigger: 'blur',
+          },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -58,18 +64,23 @@ export default {
     loginClick() {
       //进行正则验证
       this.$refs.loginFromRef.validate((valid) => {
-       // console.log(valid)
+        // console.log(valid)
         if (!valid) return
 
-        this.$http.post('login',this.login).then((response) => {
+        this.$http.post('login', this.login).then((response) => {
           //console.log(response.data)
-          const {data:res} = response.data;
+          const { data: res } = response.data
           this.$message.success('登陆成功')
           //存储token
           window.sessionStorage.setItem('token', res.token)
           this.$router.push('/home')
         })
       })
+    },
+    loginTouristClick() {
+      //存储token
+      window.sessionStorage.setItem('token', '123456')
+      this.$router.push('/home')
     },
     //点击按钮 重置登录表单
     resetLoginFrom() {

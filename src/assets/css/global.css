@@ -12,3 +12,6 @@ body,
   margin-bottom:15px;
 }
 
+.el-pagination{
+  margin-top: 15px;
+}
