@@ -15,3 +15,7 @@ body,
 .el-pagination{
   margin-top: 15px;
 }
+.el-main{
+  overflow:visible;
+  padding:0 !important;
+}

@@ -14,7 +14,9 @@ const routes = [
     path: '/login',
     component: Login
   },
-  { path: '/welcome',component: () => import('../components/Welcome.vue') }
+  { path: '/welcome', component: () => import('../components/Welcome.vue') }
+  ,
+  { path: '/menu', component: () => import('../components/menu/index.vue') }
   ,
   {
     path: '/home',
