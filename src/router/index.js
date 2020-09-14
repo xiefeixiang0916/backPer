@@ -16,6 +16,8 @@ const routes = [
   },
   { path: '/welcome',component: () => import('../components/Welcome.vue') }
   ,
+  { path: '/test',component: () => import('../components/test/index.vue') }
+  ,
   {
     path: '/home',
     name: 'Home',
