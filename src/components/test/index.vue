@@ -39,6 +39,8 @@
         <div>6.2</div>
       </div>
     </div>
+
+    
   </div>
 </template>
 <script>
