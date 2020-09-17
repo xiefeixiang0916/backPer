@@ -111,7 +111,6 @@ export default {
 <style lang="less">
 .aside_div_one {
   text-align: left;
-  padding-right: 30px;
 }
 .aside_div_two {
   padding: 10px 0px 10px 20px;

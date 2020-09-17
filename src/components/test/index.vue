@@ -1,13 +1,25 @@
 <template>
   <div>
-    <div class="div1">
+    <!-- <div class="div1">
       <span>1</span>
       <span>2</span>
       <span>3</span>
       <span>4</span>
       <span>3</span>
       <span>4</span>
-    </div>
+    </div>-->
+
+    <section>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+    </section>
+
+    <p>
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+    </p>
 
     <div class="flex-container">
       <div class="flex-item">flex item 1</div>
@@ -27,6 +39,8 @@
         <div>6.2</div>
       </div>
     </div>
+
+    
   </div>
 </template>
 <script>
@@ -82,8 +96,6 @@ export default {}
   /* align-content: flex-start; */
   align-content: center;
 
-
-
   width: 800px;
   height: 700px;
   background-color: pink;
@@ -93,5 +105,55 @@ export default {}
   width: 150px;
   height: 100px;
   background-color: purple;
+}
+
+/* flex子属性 */
+section {
+  display: flex;
+  width: 60%;
+  height: 150px;
+  background-color: pink;
+  margin: 0 auto;
+}
+section div:nth-child(1) {
+  flex: 1;
+  /* width: 100px;
+  height: 150px; */
+  background-color: red;
+}
+section div:nth-child(2) {
+  width: 100px;
+  height: 150px;
+  background-color: green;
+}
+section div:nth-child(3) {
+  flex: 1;
+  /* width: 100px;
+  height: 150px; */
+  background-color: blue;
+}
+
+
+p {
+  display: flex;
+  width: 60%;
+  height: 750px;
+  background-color: pink;
+  margin: 100px auto;
+}
+p span{
+  flex: 1;
+  height: 150px;
+  background-color: blue;
+}
+p span:nth-child(2){
+  flex: 3;
+  background-color: greenyellow;
+  order: -1;
+}
+
+p span:nth-child(3){
+  background-color: greenyellow;
+  align-self: flex-end;
 }
 </style>
