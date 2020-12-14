@@ -35,7 +35,7 @@ export default {
       //表单登录对象
       login: {
         username: 'admin',
-        password: '123456',
+        password: 'admin123',
       },
       //表单验证规则
       loginFromRules: {
@@ -73,6 +73,7 @@ export default {
           this.$message.success('登陆成功')
           //存储token
           window.sessionStorage.setItem('token', res.token)
+          //跳转页面
           this.$router.push('/home')
         })
       })
