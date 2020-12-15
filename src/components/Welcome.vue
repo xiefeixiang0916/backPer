@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <el-container>
       <el-header>Header</el-header>
       <el-container>
@@ -33,4 +33,10 @@ export default {
 </script>
 
 <style lang="less">
+.el-aside{
+  overflow: hidden;
+}
+.el-container{
+  height: 100%;
+}
 </style>

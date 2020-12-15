@@ -107,7 +107,7 @@ export default {
     },
   },
 }
-</script scoped>
+</script>
 <style lang="less">
 .aside_div_one {
   text-align: left;
@@ -141,4 +141,5 @@ export default {
     color: #14b9c8;
   }
 }
+
 </style>

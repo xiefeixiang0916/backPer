@@ -18,8 +18,6 @@ const routes = [
   ,
   { path: '/menu', component: () => import('../components/menu/index.vue') }
   ,
-  { path: '/test',component: () => import('../components/test/index.vue') }
-  ,
   {
     path: '/home',
     name: 'Home',
