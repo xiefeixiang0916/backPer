@@ -8,20 +8,34 @@
 
       <!-- 登录表单区域 -->
       <div>
-        <el-form ref="loginFromRef" :model="login" class="login_form" :rules="loginFromRules">
+        <el-form
+          ref="loginFromRef"
+          :model="login"
+          class="login_form"
+          :rules="loginFromRules"
+        >
           <!-- 用户名 -->
           <el-form-item prop="username">
-            <el-input v-model="login.username" prefix-icon="el-icon-user-solid"></el-input>
+            <el-input
+              v-model="login.username"
+              prefix-icon="el-icon-user-solid"
+            ></el-input>
           </el-form-item>
           <!-- 密码 -->
           <el-form-item prop="password">
-            <el-input v-model="login.password" type="password" prefix-icon="el-icon-lock"></el-input>
+            <el-input
+              v-model="login.password"
+              type="password"
+              prefix-icon="el-icon-lock"
+            ></el-input>
           </el-form-item>
           <!-- 按钮区域 -->
           <el-form-item class="btns">
             <el-button type="primary" @click="loginClick">登录</el-button>
             <el-button @click="resetLoginFrom">重置</el-button>
-            <el-button type="primary" @click="loginTouristClick">游客模式</el-button>
+            <el-button type="primary" @click="loginTouristClick"
+              >游客模式</el-button
+            >
           </el-form-item>
         </el-form>
       </div>
@@ -68,11 +82,9 @@ export default {
         if (!valid) return
 
         this.$http.post('login', this.login).then((response) => {
-          //console.log(response.data)
-          const { data: res } = response.data
           this.$message.success('登陆成功')
           //存储token
-          window.sessionStorage.setItem('token', res.token)
+          window.sessionStorage.setItem('token', response.data.token)
           //跳转页面
           this.$router.push('/home')
         })

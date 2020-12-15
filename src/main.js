@@ -10,19 +10,29 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 //axios 配置
 import axios from 'axios'
+import service from './utils/request'
 //配置请求的根路径
 // axios.defaults.baseURL = 'http://192.168.0.24:8085/';
-axios.defaults.baseURL = '/';
-axios.interceptors.request.use(config => {
-  // console.log(config)
-  if (window.sessionStorage.getItem('token') != null){
-    config.headers.Authorization = window.sessionStorage.getItem('token');
-  }
+// axios.defaults.baseURL = '/';
+// axios.interceptors.request.use(config => {
+//   console.log(window.sessionStorage.getItem('token'))
 
-  //在最后必须 return config
-  return config;
-})
-Vue.prototype.$http = axios;
+//   if(window.sessionStorage.getItem('token') == "undefined"){
+//     console.log("2")
+//     window.sessionStorage.setItem('token',null )
+//   }
+
+//   if (window.sessionStorage.getItem('token') != null){
+//     console.log("1")
+//     config.headers.Authorization = window.sessionStorage.getItem('token');
+//   }else{
+//     config.headers.Authorization = null;
+//   }
+  
+//   //在最后必须 return config
+//   return config;
+// })
+Vue.prototype.$http = service;
 
 Vue.use(ElementUI)
 

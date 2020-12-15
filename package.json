@@ -10,6 +10,7 @@
     "axios": "^0.20.0",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.2",
+    "js-cookie": "^2.2.1",
     "less": "^3.12.2",
     "less-loader": "^6.2.0",
     "save": "^2.4.0",

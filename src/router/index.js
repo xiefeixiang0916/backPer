@@ -18,6 +18,8 @@ const routes = [
   ,
   { path: '/menu', component: () => import('../components/menu/index.vue') }
   ,
+  { path: '/header', component: () => import('../components/header/index.vue') }
+  ,
   {
     path: '/home',
     name: 'Home',

@@ -8,8 +8,7 @@ module.exports = {
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
-                    // '^': ''
-                    ['^' + 'http://192.168.0.24:8085']: ''
+                    '^': ''
                 }
             }
         }

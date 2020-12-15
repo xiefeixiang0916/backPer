@@ -1,10 +1,12 @@
 <template>
-
+<div>
+  Header
+</div>
 </template>
 
 <script>
 export default {
-  name: "IndexBackground.vue"
+  name: "index"
 }
 </script>
 
