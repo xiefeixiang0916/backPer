@@ -76,6 +76,7 @@ export default {
   },
   methods: {
     loginClick() {
+      window.sessionStorage.setItem('token',"")
       //进行正则验证
       this.$refs.loginFromRef.validate((valid) => {
         // console.log(valid)

@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { listMenu } from '@/api/system/menu';
+
 export default {
   data() {
     return {
@@ -69,8 +71,16 @@ export default {
     menu.switchover = 1
     this.$set(this.menuList, 0, menu)
     this.mouseenterColorMethos(menu)
+    console.log("menu1")
+    this.getList();
   },
   methods: {
+    getList() {
+      console.log("menu2")
+      listMenu().then(response => {
+        console.log(response)
+      })
+    },
     clickColorMethos(val) {
       this.switchoverCssArrar(val)
       this.switchoverCss = 'clickColor i_span_color'
